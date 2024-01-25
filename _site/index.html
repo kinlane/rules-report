@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>API Evangelist Tool - Rules Summary | Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds.</title>
+<meta name="generator" content="Jekyll v3.9.2" />
+<meta property="og:title" content="API Evangelist Tool - Rules Summary" />
+<meta name="author" content="Kin Lane" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds." />
+<meta property="og:description" content="Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="API Evangelist Tool - Rules Summary" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="API Evangelist Tool - Rules Summary" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Kin Lane"},"description":"Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds.","headline":"API Evangelist Tool - Rules Summary","name":"API Evangelist Tool - Rules Summary","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kinlane-productions2.s3.amazonaws.com/api-evangelist-logos/api-evangelist-logo-butterfly.png"},"name":"Kin Lane"},"url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://apievangelist.com/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="https://apievangelist.com/favicon.ico">
+
+  <link rel="alternate" type="application/rss+xml" title="API Evangelist Tool - Rules Summary" href="/feed.xml">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+
+  <script src="/assets/js/main.js"></script>
+
+  
+    <script>
+function searchResults(form) {
+
+    var currentItem = null;
+    var search = document.getElementById(form);
+    var results = document.getElementById(form + "-results");
+    var toggle = document.getElementById(form + "-toggle");
+
+    function removeActive() {
+        for (i = 0; i < results.children.length; i++) {
+            results.children[i].classList.remove("uk-background-muted");
+        }
+    }
+
+    // Detect all clicks on the document
+    document.addEventListener("click", function(event) {
+
+        var isClickSearch = false;
+        var isClickResults = false;
+        var isClickSearchToggle = false;
+
+        if (search !== null) {
+            isClickSearch = search.contains(event.target);
+        }
+
+        if (results !== null) {
+            isClickResults = results.contains(event.target);
+        }
+
+        if (toggle !== null) {
+            isClickSearchToggle = toggle.contains(event.target);
+        }
+
+        if (isClickSearch || isClickSearchToggle) {
+            results.style.display = "block";
+        }        
+
+        if (!isClickResults && !isClickSearch && !isClickSearchToggle) {
+            results.style.display = "none";
+        }        
+        
+    });    
+
+    results.addEventListener("mouseover", function(event) {
+
+        removeActive();
+        event.target.parentElement.classList.add("uk-background-muted");
+        currentItem = null;
+
+    });
+
+    results.addEventListener("mouseout", function(event) {
+        event.target.parentElement.classList.remove("uk-background-muted");
+    });
+
+
+    search.addEventListener("keyup", function(event) {
+
+        var resultItems = results.children;
+        var resultCount = results.children.length;
+                                
+        if (event.keyCode === 40) {
+
+            if (currentItem < (resultCount - 1)) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem++;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+            
+        } else if (event.keyCode === 38) {
+
+            if (currentItem > 0) {
+                if (currentItem === null) {
+                    currentItem = 0;
+                } else {
+                    removeActive();
+                    currentItem--;
+                }
+                removeActive();
+                resultItems[currentItem].classList.add("uk-background-muted");
+            }
+
+        } else if (event.keyCode === 13) {
+
+            resultItems[currentItem].children[0].click();
+
+        }
+
+    });
+
+}
+</script>
+  
+  
+  
+  
+    
+
+  <meta property="og:url" content="">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="API Evangelist Tool - Rules Summary">
+  <meta property="og:site_name" content="API Evangelist Tool - Rules Summary">
+  <meta property="og:description" content="Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds.">
+  <meta property="og:image"  content="">
+
+  <meta name="twitter:url" content="">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="API Evangelist Tool - Rules Summary">
+  <meta name="twitter:site" content="API Evangelist Tool - Rules Summary">
+  <meta name="twitter:description" content="Making sense of the technology, business, and politics of APIs that is impact all stages of our physical and digital worlds.">
+
+  
+  
+  <meta name="twitter:image" content="">
+
+  <script src="/assets/js/jquery-latest.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="/assets/js/js-yaml.min.js" type="text/javascript" charset="utf-8"></script>
+
+<body>
+  
+</head>
+
+    
+        <div data-uk-sticky="animation: uk-animation-slide-top; sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-navbar-transparent; top: 200">
+    <nav class="uk-navbar-container">
+        <div class="uk-container">
+            <div data-uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-visible@m" href="/"><img src="https://kinlane-productions2.s3.amazonaws.com/api-evangelist-logos/api-evangelist-logo-butterfly.png" alt="API Evangelist Tool - Rules Summary" width="300"></a>
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas-docs" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Docs</span></a>
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                            
+                            
+                            
+                                
+                                    
+                                        <li class="uk-active"><a href="/" >Home</a></li>
+                                                                                                        
+                                
+                            
+                        
+                    </ul>
+                </div>
+                <div class="uk-navbar-center uk-hidden@m">
+                    <a class="uk-navbar-item uk-logo" href="/"><img src="https://kinlane-productions2.s3.amazonaws.com/api-evangelist-logos/api-evangelist-logo-butterfly.png" alt="API Evangelist Tool - Rules Summary"></a>
+                </div>
+                <div class="uk-navbar-right">
+                    
+                        
+                            <div>
+                                <a id="search-navbar-toggle" class="uk-navbar-toggle" uk-search-icon href="#"></a>
+                                <div class="uk-drop uk-background-default uk-border-rounded" uk-drop="mode: click; pos: left-center; offset: 0">
+                                    <form class="uk-search uk-search-navbar uk-width-1-1" onsubmit="return false;">
+                                        <input id="search-navbar" class="uk-search-input" type="search" placeholder="Search for answers" autofocus autocomplete="off">
+                                    </form>
+                                    <ul id="search-navbar-results" class="uk-position-absolute uk-width-1-1 uk-list"></ul>
+                                </div>
+                            </div>
+                            <script>
+                            SimpleJekyllSearch({
+                                searchInput: document.getElementById('search-navbar'),
+                                resultsContainer: document.getElementById('search-navbar-results'),
+                                noResultsText: '<li class="no-results">No results found</li>',
+                                searchResultTemplate: '<li><a href="{url}">{title}</a></li>',
+                                json: "/search.json"
+                            });
+                            searchResults("search-navbar");
+                            </script>
+                        
+                    
+
+                    <ul class="uk-navbar-nav uk-visible@m">
+                        
+                    </ul>
+
+                    
+                        <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" data-uk-toggle><span data-uk-navbar-toggle-icon></span> <span class="uk-margin-small-left">Menu</span></a>
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+    
+
+    <style>
+        ul{
+            padding: 10px 25px 25px 25px;
+            margin: 10px 25px 25px 25px;
+        }
+    </style>
+
+    
+    <div class="uk-section">
+    <div class="uk-container uk-container-xlarge">
+
+        <h1 class="uk-article-title">Rules Report</h1>
+        <p>I am exploring with different ways of viewing the results of design reviews.</p>
+        <h2>Rules Input</h2> 
+        <input type="text" id="format" style="width: 100%;"> 
+        <textarea style="width: 100%; height: 250px; border: 5px solid #000;" id="rules-input" onchange="updateArtifact();"></textarea>   
+        <h2 id="rules-summary-header">Rules Report</h2> 
+        <textarea style="width: 100%; height: 250px; border: 5px solid #000;" id="rules-summary" onchange="updateArtifact();"></textarea>                      
+        <div id="summary"></div>
+        <script>
+            function saveArtifact(artifact){
+                var format = document.getElementById('format').value;
+                if(format=='json'){
+                    document.getElementById('rules-input').value = JSON.stringify(artifact, null, 2); 
+                }
+                if(format=='yaml'){
+                    document.getElementById('rules-input').value = jsyaml.dump(artifact); 
+                }                
+            }
+
+            function parseArtifact(){
+                var artifact = document.getElementById('rules-input').value;
+
+                var is_yaml = 0;
+                var is_json = 0;
+
+                try {
+                    var artifact = jsyaml.load(artifact);
+                    console.log(artifact);
+                    is_yaml = 1;
+                    is_json = 0;
+                } catch (error) {
+                    console.log(error);
+                }
+                try {
+                    var artifact = JSON.parse(artifact);
+                    is_json = 1;
+                    is_yaml = 0;
+                } catch (error) {}
+
+                if(is_json==1){
+                    document.getElementById("format").value = "json";
+                }
+                else{
+                    document.getElementById("format").value = "yaml";  
+                }
+                return artifact;                
+            }
+           
+            function updateArtifact(){
+
+                var artifact = parseArtifact();
+                console.log(artifact)
+
+                var summary = {};
+
+                var html = '';
+                if(artifact){
+                    var rule_counter = 1;
+                    for (let i = 0; i < artifact.length; i++) {
+
+                        var message = artifact[i].message;
+                        var severity = artifact[i].severity;
+                        var code = artifact[i].code;
+
+                        if(!summary[code]){ 
+                            summary[code] = {};
+                            summary[code].message = message;
+                            summary[code].errors = 0;
+                            summary[code].warn = 0;
+                            summary[code].info = 0;
+                            summary[code].hints = 0;
+                        }
+                        if(severity == 0){
+                            summary[code].errors = summary[code].errors + 1;
+                        } 
+                        if(severity == 1){
+                            summary[code].warn = summary[code].warn + 1;
+                        } 
+                        if(severity == 2){
+                            summary[code].info = summary[code].info + 1;
+                        } 
+                        if(severity == 3){
+                            summary[code].hints = summary[code].hints + 1;
+                        }                                                                             
+
+                    }
+                }
+
+                //console.log(summary);
+
+                var html = '<table width="100%">';
+
+                const ordered = Object.keys(summary).sort().reduce(
+                    (obj, key) => { 
+                        obj[key] = summary[key]; 
+                        return obj;
+                    }, 
+                    {}
+                );
+
+                // THE GOOD - INFO
+                html += ratingsTitleRow('Doing Well');   
+                html += ratingsBodyRow("Let's start with the good, and what you are doing well.");
+
+                // OPENAPI
+                html += ratingsTitleRow('OpenAPI');  
+                html += ratingsBodyRow("Let's check in on what version is being used of OpenAPI.");  
+                
+                html += '<table>';
+                html += ratingsValue('openapi-openapi-version-310-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-303-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-302-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-301-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-300-info',ordered,'info'); 
+                html += '</table>';
+
+                // INFO
+                html += ratingsTitleRow('Info');
+                html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
+                html += '<table>';
+                //html += ratingsValue('openapi-info',ordered,'info');    
+                html += ratingsValue('openapi-info-title-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-description-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-info-contact-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-name-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-url-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-email-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-info-terms-of-service-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-license-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-version-info',ordered,'info');                 
+                html += ratingsValue('openapi-version-semantic-info',ordered,'info');  
+                html += ratingsValue('openapi-version-date-info',ordered,'info');  
+                html += '</table>';
+
+                // PATH
+                html += ratingsTitleRow('Paths');
+                html += '<table>';
+                //html += ratingsValue('-path',ordered,'info');     
+                html += ratingsValue('openapi-no-path-trailing-slash',ordered,'info'); 
+                html += ratingsValue('openapi-no-api-in-path-info',ordered,'info'); 
+                html += ratingsValue('openapi-path-description-info',ordered,'info'); 
+                html += '</table>';                
+
+                // OPERATIONS
+                html += ratingsTitleRow('Operations');
+                html += '<table>';
+                //html += ratingsValue('-operation',ordered,'info');
+                
+                html += ratingsValue('openapi-operations-summary-info',ordered,'info');
+                html += ratingsValue('openapi-operations-description-info',ordered,'info');
+                html += ratingsValue('openapi-operations-operation-ids-info',ordered,'info');
+                html += ratingsValue('openapi-operations-operation-ids-camel-case-info',ordered,'info');
+                html += ratingsValue('openapi-operations-tags-info',ordered,'info');                
+                html += '</table>';
+
+                // PARAMETERS
+                html += ratingsTitleRow('Parameters');
+                html += '<table>';
+                //html += ratingsValue('-parameter',ordered,'info');   
+                html += ratingsValue('openapi-parameters-name-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-in-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-description-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-required-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-enum-info',ordered,'info');
+                html += ratingsValue('openapi-parameters-enum-casing-info',ordered,'info');
+                html += ratingsValue('openapi-parameters-schema-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-schema-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'info'); 
+                html += '</table>';
+
+                // REQUEST BODIES
+                html += ratingsTitleRow('Request Bodies');
+                html += '<table>';
+                //html += ratingsValue('-request-bod',ordered,'info');   
+
+                html += ratingsValue('openapi-request-body-on-post-info',ordered,'info');                 
+                html += ratingsValue('openapi-request-body-on-put-info',ordered,'info');                 
+                html += ratingsValue('openapi-request-body-on-patch-info',ordered,'info');               
+                
+                html += ratingsValue('openapi-request-body-have-application-x-www-form-url-encoded-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-have-application-json-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-have-schema-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-have-schema-required-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-ref-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-descriptions-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-array-items-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-schema-properties-array-maxitems-info',ordered,'info'); 
+                
+                html += ratingsValue('openapi-request-body-schema-properties-string-minlength-info  ',ordered,'info');
+                html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-info  ',ordered,'info'); 
+
+                html += '</table>';
+
+                // RESPONSES
+                html += ratingsTitleRow('Responses');
+                html += '<table>';
+                //html += ratingsValue('-response',ordered,'info');      
+
+                html += ratingsValue('openapi-response-get-200-status-code-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-media-type-in',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-media-type-schema-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-schema-ref-info',ordered,'info');   
+
+                html += ratingsValue('openapi-response-get-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-get-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-get-500-status-code-info',ordered,'info');   
+
+                html += ratingsValue('openapi-response-post-201-status-code-info',ordered,'info');      
+                html += ratingsValue('openapi-response-post-201-media-type-in',ordered,'info');      
+                html += ratingsValue('openapi-response-post-201-media-type-schema-info',ordered,'info');                    
+
+                html += ratingsValue('openapi-response-post-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-post-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-post-500-status-code-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-response-put-204-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-put-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-put-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-put-500-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-delete-204-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-delete-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-delete-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-delete-500-status-code-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-response-get-default-status-code-info ',ordered,'info');      
+                html += ratingsValue('openapi-response-get-default-media-type-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-default-media-type-schema-info',ordered,'info');      
+                html += '</table>';
+
+                // SCHEMA
+                html += ratingsTitleRow('Schema');
+                html += '<table>';
+                //html += ratingsValue('-schema',ordered,'info');                   
+
+                html += ratingsValue('openapi-schema-description-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-schema-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-required-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-examples-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-descriptions-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-string-maxlength-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-type-string-pattern-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-array-items-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-array-maxitems-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-pii-info  ',ordered,'info'); 
+                html += '</table>';
+
+                html += '<hr>';
+
+                // NOT SO WELL - ERROR
+                html += ratingsTitleRow('Not So Well');   
+                html += ratingsBodyRow("Let's start with the good, and what you are doing well.");
+
+                // error
+                html += ratingsTitleRow('Info');
+                html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
+                html += '<table>';
+                //html += ratingsValue('openapi-info',ordered,'errors');    
+                html += ratingsValue('openapi-info-title-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-description-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-name-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-url-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-email-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-terms-of-service-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-version-error',ordered,'errors');                 
+                html += ratingsValue('openapi-info-license-error',ordered,'errors');  
+                html += '</table>';                
+
+                // PATH
+                html += ratingsTitleRow('Paths');
+                html += '<table>';
+                html += '<tr><td colspan="5"> </td></tr>';
+                //html += ratingsValue('-path',ordered,'errors');     
+                html += ratingsValue('openapi-no-path-trailing-slash-error',ordered,'errors'); 
+                html += ratingsValue('openapi-no-api-in-path-error',ordered,'errors'); 
+                html += '</table>';
+
+                // OPERATIONS
+                html += ratingsTitleRow('Operations');
+                html += '<table>';
+                //html += ratingsValue('-operation',ordered,'errors');
+                
+                html += ratingsValue('openapi-operations-summary-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-description-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-operation-ids-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-operation-ids-camel-case-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-tags-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-tags-one-error',ordered,'errors');
+                html += '</table>';
+
+                // PARAMETERS
+                html += ratingsTitleRow('Parameters');
+                html += '<table>';
+                //html += ratingsValue('-parameter',ordered,'errors');   
+                html += ratingsValue('openapi-parameters-name-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-in-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-description-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-required-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'errors'); 
+                html += '</table>';
+
+                // REQUEST BODIES
+                html += ratingsTitleRow('Request Bodies');
+                html += '<table>';
+                //html += ratingsValue('-request-bod',ordered,'errors');   
+
+                html += ratingsValue('openapi-request-body-on-post-error',ordered,'errors');                 
+                html += ratingsValue('openapi-request-body-on-put-error',ordered,'errors');                 
+                html += ratingsValue('openapi-request-body-on-patch-error',ordered,'errors');               
+                
+                html += ratingsValue('openapi-request-body-have-application-x-www-form-url-encoded-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-have-application-json-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-have-schema-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-have-schema-required-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-descriptions-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-array-items-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-schema-properties-array-maxitems-error',ordered,'errors'); 
+                
+                html += ratingsValue('openapi-request-body-schema-properties-string-minlength-error  ',ordered,'errors');
+                html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-error  ',ordered,'errors'); 
+
+                html += '</table>';
+
+                // RESPONSES
+                html += ratingsTitleRow('Responses');
+                html += '<table>';
+                //html += ratingsValue('-response',ordered,'errors');      
+
+                html += ratingsValue('openapi-response-get-200-status-code-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-200-media-type-in',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-200-media-type-schema-error',ordered,'errors');      
+
+                html += ratingsValue('openapi-response-get-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-get-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-get-500-status-code-error',ordered,'errors');   
+
+                html += ratingsValue('openapi-response-post-201-status-code-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-post-201-media-type-in',ordered,'errors');      
+                html += ratingsValue('openapi-response-post-201-media-type-schema-error',ordered,'errors');                    
+
+                html += ratingsValue('openapi-response-post-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-post-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-post-500-status-code-error',ordered,'errors');                 
+
+                html += ratingsValue('openapi-response-put-204-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-put-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-put-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-put-500-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-delete-204-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-delete-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-delete-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-delete-500-status-code-error',ordered,'errors'); 
+                
+                html += ratingsValue('openapi-response-get-default-status-code-error ',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-default-media-type-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-default-media-type-schema-error',ordered,'errors');      
+                html += '</table>';
+
+                // SCHEMA
+                html += ratingsTitleRow('Schema');
+                html += '<table>';
+                //html += ratingsValue('-schema',ordered,'errors');                   
+
+                html += ratingsValue('openapi-schema-description-error',ordered,'errors');                 
+
+                html += ratingsValue('openapi-schema-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-required-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-examples-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-descriptions-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-string-maxlength-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-type-string-pattern-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-array-items-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-array-maxitems-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-pii-error  ',ordered,'errors'); 
+                html += '</table>';                
+                // ALL
+                //html += '<tr><td colspan="5"><hr></td></tr>'
+                //html += ratingsTitleRow('ALL');
+                //html += '<table>';
+                //for (const [rule, counts] of Object.entries(ordered)) {                    
+                        ///html += ratingsRow(rule,counts);                
+                //} 
+                html += '</table>';                  
+                             
+                html += '</table>';
+
+                document.getElementById('summary').innerHTML = html;
+                document.getElementById('rules-summary').innerHTML = '';
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary - UPDATING!!!'
+                document.getElementById('rules-summary').innerHTML = '---\r\n' + jsyaml.dump(ordered) + '---';
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary'
+
+            }
+
+            function ratingsTitleRow(title){
+                let html = '<h3>' + title + '</h3>';
+                return html;               
+            }      
+            
+            function ratingsBodyRow(body){
+                let html = '<p>' + body + '</p>';
+                return html;               
+            }                
+
+            function ratingsRow(rule,counts){
+                let html = '<tr>';                      
+
+                //html += '<td style="width: 60%;">' + counts.message + ' (' + rule + ')</td>';
+                //html += '<td style="width: 60%;">' + counts.message + '</td>';
+                html += '<td style="width: 60%;">' + rule + '</td>';
+                if(counts.errors > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9888;</td>';
+                }
+
+                if(counts.warn > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#x26A0;</td>';
+                }
+
+                if(counts.info > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                }
+
+                if(counts.hints > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                }
+
+                html += '</tr>'; 
+                return html;                
+            }     
+            
+            function ratingsValue(slug,ordered,severity){
+                html = '';
+                for (const [rule, counts] of Object.entries(ordered)) {
+                    if(rule.includes(slug)){
+                        if(severity == 'errors'){
+                            if(counts['errors'] > 0 || counts['warn'] > 0){
+                                console.log("IN!!");
+                                html += ratingsRow(rule,counts);
+                            }
+                        }
+                        else{
+                            if(counts[severity] > 0){
+                                html += ratingsRow(rule,counts);
+                            }
+                        }
+                    }                   
+                }         
+                return html;       
+            }
+        </script>
+    </div>
+</div>
+
+
+
+    <div id="offcanvas-docs" data-uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+
+        
+
+    </div>
+</div>
+
+
+    <div id="offcanvas" data-uk-offcanvas="flip: true; overlay: true">
+    <div class="uk-offcanvas-bar">
+
+        <a class="uk-logo uk-margin-small-bottom" href="/"><img src="https://kinlane-productions2.s3.amazonaws.com/api-evangelist-logos/api-evangelist-logo-butterfly.png" alt="API Evangelist Tool - Rules Summary"></a>
+     
+        <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+      
+        <ul class="uk-nav uk-nav-primary uk-margin-top">
+            
+                
+
+                
+
+                
+                    <li class="uk-active"><a href="/" >Home</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/docs/installation/" >Docs</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/blog/" >Blog</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><a href="/changelog-timeline/" >Changelog</a></li>
+                
+            
+                
+
+                
+
+                
+                    <li><div class="uk-navbar-item"><a class="uk-button uk-button-success" href="/contact/" >Contact</a></div></li>
+                
+            
+        </ul>
+
+        <div class="uk-margin-top uk-text-center">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+<div>
+    <a href="https://www.linkedin.com/in/kinlane/" title="LinkedIn" data-uk-icon="icon: linkedin" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="https://www.youtube.com/c/KinLane" title="Youtube" data-uk-icon="icon: youtube" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="https://github.com/api-evangelist" title="GitHub" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+        <footer class="uk-section uk-text-center uk-text-muted">
+    <div class="uk-container uk-container-small">
+
+        <div>
+            <ul class="uk-subnav uk-flex-center">
+                
+                    
+                    
+                    
+                        <li><a href="https://apis.io" target="_blank" >APIs.io</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="https://apievangelist.com" target="_blank" >API Evangelist</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="https://api.specificationtoolbox.com/" target="_blank" >API Specification Toolbox</a></li>
+                    
+                
+                    
+                    
+                    
+                        <li><a href="http://kinlane.com" target="_blank" >Kin Lane</a></li>
+                    
+                
+            </ul>
+        </div>
+        <div class="uk-margin-medium">
+            <div data-uk-grid class="uk-child-width-auto uk-grid-small uk-flex-center uk-grid">
+                
+
+
+
+
+<div>
+    <a href="https://www.linkedin.com/in/kinlane/" title="LinkedIn" data-uk-icon="icon: linkedin" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="https://www.youtube.com/c/KinLane" title="Youtube" data-uk-icon="icon: youtube" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+<div>
+    <a href="https://github.com/api-evangelist" title="GitHub" data-uk-icon="icon: github" class="uk-icon-link uk-icon" target="_blank"></a>
+</div>
+
+
+
+            </div>
+        </div>
+        <div class="uk-margin-medium uk-text-small copyright link-secondary">API Evangelist</div>
+
+    </div>
+</footer>
+
+    
+
+    
+
+    
+
+    </body>
+
+</html>

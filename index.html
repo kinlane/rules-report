@@ -1,0 +1,489 @@
+---
+layout: page
+width: expand
+---
+<div class="uk-section">
+    <div class="uk-container uk-container-xlarge">
+
+        <h1 class="uk-article-title">Rules Report</h1>
+        <p>I am exploring with different ways of viewing the results of design reviews.</p>
+        <h2>Rules Input</h2> 
+        <input type="text" id="format" style="width: 100%;"> 
+        <textarea style="width: 100%; height: 250px; border: 5px solid #000;" id="rules-input" onchange="updateArtifact();"></textarea>   
+        <h2 id="rules-summary-header">Rules Report</h2> 
+        <textarea style="width: 100%; height: 250px; border: 5px solid #000;" id="rules-summary" onchange="updateArtifact();"></textarea>                      
+        <div id="summary"></div>
+        <script>
+            function saveArtifact(artifact){
+                var format = document.getElementById('format').value;
+                if(format=='json'){
+                    document.getElementById('rules-input').value = JSON.stringify(artifact, null, 2); 
+                }
+                if(format=='yaml'){
+                    document.getElementById('rules-input').value = jsyaml.dump(artifact); 
+                }                
+            }
+
+            function parseArtifact(){
+                var artifact = document.getElementById('rules-input').value;
+
+                var is_yaml = 0;
+                var is_json = 0;
+
+                try {
+                    var artifact = jsyaml.load(artifact);
+                    console.log(artifact);
+                    is_yaml = 1;
+                    is_json = 0;
+                } catch (error) {
+                    console.log(error);
+                }
+                try {
+                    var artifact = JSON.parse(artifact);
+                    is_json = 1;
+                    is_yaml = 0;
+                } catch (error) {}
+
+                if(is_json==1){
+                    document.getElementById("format").value = "json";
+                }
+                else{
+                    document.getElementById("format").value = "yaml";  
+                }
+                return artifact;                
+            }
+           
+            function updateArtifact(){
+
+                var artifact = parseArtifact();
+                console.log(artifact)
+
+                var summary = {};
+
+                var html = '';
+                if(artifact){
+                    var rule_counter = 1;
+                    for (let i = 0; i < artifact.length; i++) {
+
+                        var message = artifact[i].message;
+                        var severity = artifact[i].severity;
+                        var code = artifact[i].code;
+
+                        if(!summary[code]){ 
+                            summary[code] = {};
+                            summary[code].message = message;
+                            summary[code].errors = 0;
+                            summary[code].warn = 0;
+                            summary[code].info = 0;
+                            summary[code].hints = 0;
+                        }
+                        if(severity == 0){
+                            summary[code].errors = summary[code].errors + 1;
+                        } 
+                        if(severity == 1){
+                            summary[code].warn = summary[code].warn + 1;
+                        } 
+                        if(severity == 2){
+                            summary[code].info = summary[code].info + 1;
+                        } 
+                        if(severity == 3){
+                            summary[code].hints = summary[code].hints + 1;
+                        }                                                                             
+
+                    }
+                }
+
+                //console.log(summary);
+
+                var html = '<table width="100%">';
+
+                const ordered = Object.keys(summary).sort().reduce(
+                    (obj, key) => { 
+                        obj[key] = summary[key]; 
+                        return obj;
+                    }, 
+                    {}
+                );
+
+                // THE GOOD - INFO
+                html += ratingsTitleRow('Doing Well');   
+                html += ratingsBodyRow("Let's start with the good, and what you are doing well.");
+
+                // OPENAPI
+                html += ratingsTitleRow('OpenAPI');  
+                html += ratingsBodyRow("Let's check in on what version is being used of OpenAPI.");  
+                
+                html += '<table>';
+                html += ratingsValue('openapi-openapi-version-310-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-303-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-302-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-301-info',ordered,'info'); 
+                html += ratingsValue('openapi-openapi-version-300-info',ordered,'info'); 
+                html += '</table>';
+
+                // INFO
+                html += ratingsTitleRow('Info');
+                html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
+                html += '<table>';
+                //html += ratingsValue('openapi-info',ordered,'info');    
+                html += ratingsValue('openapi-info-title-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-description-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-info-contact-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-name-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-url-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-contact-email-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-info-terms-of-service-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-license-info',ordered,'info'); 
+                html += ratingsValue('openapi-info-version-info',ordered,'info');                 
+                html += ratingsValue('openapi-version-semantic-info',ordered,'info');  
+                html += ratingsValue('openapi-version-date-info',ordered,'info');  
+                html += '</table>';
+
+                // PATH
+                html += ratingsTitleRow('Paths');
+                html += '<table>';
+                //html += ratingsValue('-path',ordered,'info');     
+                html += ratingsValue('openapi-no-path-trailing-slash',ordered,'info'); 
+                html += ratingsValue('openapi-no-api-in-path-info',ordered,'info'); 
+                html += ratingsValue('openapi-path-description-info',ordered,'info'); 
+                html += '</table>';                
+
+                // OPERATIONS
+                html += ratingsTitleRow('Operations');
+                html += '<table>';
+                //html += ratingsValue('-operation',ordered,'info');
+                
+                html += ratingsValue('openapi-operations-summary-info',ordered,'info');
+                html += ratingsValue('openapi-operations-description-info',ordered,'info');
+                html += ratingsValue('openapi-operations-operation-ids-info',ordered,'info');
+                html += ratingsValue('openapi-operations-operation-ids-camel-case-info',ordered,'info');
+                html += ratingsValue('openapi-operations-tags-info',ordered,'info');                
+                html += '</table>';
+
+                // PARAMETERS
+                html += ratingsTitleRow('Parameters');
+                html += '<table>';
+                //html += ratingsValue('-parameter',ordered,'info');   
+                html += ratingsValue('openapi-parameters-name-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-in-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-description-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-required-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-enum-info',ordered,'info');
+                html += ratingsValue('openapi-parameters-enum-casing-info',ordered,'info');
+                html += ratingsValue('openapi-parameters-schema-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-schema-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'info'); 
+                html += '</table>';
+
+                // REQUEST BODIES
+                html += ratingsTitleRow('Request Bodies');
+                html += '<table>';
+                //html += ratingsValue('-request-bod',ordered,'info');   
+
+                html += ratingsValue('openapi-request-body-on-post-info',ordered,'info');                 
+                html += ratingsValue('openapi-request-body-on-put-info',ordered,'info');                 
+                html += ratingsValue('openapi-request-body-on-patch-info',ordered,'info');               
+                
+                html += ratingsValue('openapi-request-body-have-application-x-www-form-url-encoded-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-have-application-json-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-have-schema-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-have-schema-required-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-ref-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-descriptions-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-array-items-info',ordered,'info'); 
+                html += ratingsValue('openapi-request-body-schema-properties-array-maxitems-info',ordered,'info'); 
+                
+                html += ratingsValue('openapi-request-body-schema-properties-string-minlength-info  ',ordered,'info');
+                html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-info  ',ordered,'info'); 
+
+                html += '</table>';
+
+                // RESPONSES
+                html += ratingsTitleRow('Responses');
+                html += '<table>';
+                //html += ratingsValue('-response',ordered,'info');      
+
+                html += ratingsValue('openapi-response-get-200-status-code-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-media-type-in',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-media-type-schema-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-200-schema-ref-info',ordered,'info');   
+
+                html += ratingsValue('openapi-response-get-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-get-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-get-500-status-code-info',ordered,'info');   
+
+                html += ratingsValue('openapi-response-post-201-status-code-info',ordered,'info');      
+                html += ratingsValue('openapi-response-post-201-media-type-in',ordered,'info');      
+                html += ratingsValue('openapi-response-post-201-media-type-schema-info',ordered,'info');                    
+
+                html += ratingsValue('openapi-response-post-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-post-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-post-500-status-code-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-response-put-204-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-put-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-put-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-put-500-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-delete-204-status-code-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-response-delete-400-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-delete-404-status-code-info',ordered,'info');   
+                html += ratingsValue('openapi-response-delete-500-status-code-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-response-get-default-status-code-info ',ordered,'info');      
+                html += ratingsValue('openapi-response-get-default-media-type-info',ordered,'info');      
+                html += ratingsValue('openapi-response-get-default-media-type-schema-info',ordered,'info');      
+                html += '</table>';
+
+                // SCHEMA
+                html += ratingsTitleRow('Schema');
+                html += '<table>';
+                //html += ratingsValue('-schema',ordered,'info');                   
+
+                html += ratingsValue('openapi-schema-description-info',ordered,'info');                 
+
+                html += ratingsValue('openapi-schema-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-required-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-examples-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-type-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-descriptions-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-string-maxlength-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-type-string-pattern-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-array-items-info',ordered,'info'); 
+                html += ratingsValue('openapi-schema-properties-array-maxitems-info',ordered,'info'); 
+
+                html += ratingsValue('openapi-schema-properties-pii-info  ',ordered,'info'); 
+                html += '</table>';
+
+                html += '<hr>';
+
+                // NOT SO WELL - ERROR
+                html += ratingsTitleRow('Not So Well');   
+                html += ratingsBodyRow("Let's start with the good, and what you are doing well.");
+
+                // error
+                html += ratingsTitleRow('Info');
+                html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
+                html += '<table>';
+                //html += ratingsValue('openapi-info',ordered,'errors');    
+                html += ratingsValue('openapi-info-title-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-description-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-name-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-url-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-contact-email-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-terms-of-service-error',ordered,'errors'); 
+                html += ratingsValue('openapi-info-version-error',ordered,'errors');                 
+                html += ratingsValue('openapi-info-license-error',ordered,'errors');  
+                html += '</table>';                
+
+                // PATH
+                html += ratingsTitleRow('Paths');
+                html += '<table>';
+                html += '<tr><td colspan="5"> </td></tr>';
+                //html += ratingsValue('-path',ordered,'errors');     
+                html += ratingsValue('openapi-no-path-trailing-slash-error',ordered,'errors'); 
+                html += ratingsValue('openapi-no-api-in-path-error',ordered,'errors'); 
+                html += '</table>';
+
+                // OPERATIONS
+                html += ratingsTitleRow('Operations');
+                html += '<table>';
+                //html += ratingsValue('-operation',ordered,'errors');
+                
+                html += ratingsValue('openapi-operations-summary-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-description-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-operation-ids-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-operation-ids-camel-case-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-tags-error',ordered,'errors');
+                html += ratingsValue('openapi-operations-tags-one-error',ordered,'errors');
+                html += '</table>';
+
+                // PARAMETERS
+                html += ratingsTitleRow('Parameters');
+                html += '<table>';
+                //html += ratingsValue('-parameter',ordered,'errors');   
+                html += ratingsValue('openapi-parameters-name-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-in-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-description-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-required-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'errors'); 
+                html += '</table>';
+
+                // REQUEST BODIES
+                html += ratingsTitleRow('Request Bodies');
+                html += '<table>';
+                //html += ratingsValue('-request-bod',ordered,'errors');   
+
+                html += ratingsValue('openapi-request-body-on-post-error',ordered,'errors');                 
+                html += ratingsValue('openapi-request-body-on-put-error',ordered,'errors');                 
+                html += ratingsValue('openapi-request-body-on-patch-error',ordered,'errors');               
+                
+                html += ratingsValue('openapi-request-body-have-application-x-www-form-url-encoded-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-have-application-json-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-have-schema-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-have-schema-required-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-descriptions-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-request-body-schema-properties-array-items-error',ordered,'errors'); 
+                html += ratingsValue('openapi-request-body-schema-properties-array-maxitems-error',ordered,'errors'); 
+                
+                html += ratingsValue('openapi-request-body-schema-properties-string-minlength-error  ',ordered,'errors');
+                html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-error  ',ordered,'errors'); 
+
+                html += '</table>';
+
+                // RESPONSES
+                html += ratingsTitleRow('Responses');
+                html += '<table>';
+                //html += ratingsValue('-response',ordered,'errors');      
+
+                html += ratingsValue('openapi-response-get-200-status-code-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-200-media-type-in',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-200-media-type-schema-error',ordered,'errors');      
+
+                html += ratingsValue('openapi-response-get-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-get-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-get-500-status-code-error',ordered,'errors');   
+
+                html += ratingsValue('openapi-response-post-201-status-code-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-post-201-media-type-in',ordered,'errors');      
+                html += ratingsValue('openapi-response-post-201-media-type-schema-error',ordered,'errors');                    
+
+                html += ratingsValue('openapi-response-post-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-post-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-post-500-status-code-error',ordered,'errors');                 
+
+                html += ratingsValue('openapi-response-put-204-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-put-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-put-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-put-500-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-delete-204-status-code-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-response-delete-400-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-delete-404-status-code-error',ordered,'errors');   
+                html += ratingsValue('openapi-response-delete-500-status-code-error',ordered,'errors'); 
+                
+                html += ratingsValue('openapi-response-get-default-status-code-error ',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-default-media-type-error',ordered,'errors');      
+                html += ratingsValue('openapi-response-get-default-media-type-schema-error',ordered,'errors');      
+                html += '</table>';
+
+                // SCHEMA
+                html += ratingsTitleRow('Schema');
+                html += '<table>';
+                //html += ratingsValue('-schema',ordered,'errors');                   
+
+                html += ratingsValue('openapi-schema-description-error',ordered,'errors');                 
+
+                html += ratingsValue('openapi-schema-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-required-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-examples-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-type-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-descriptions-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-string-maxlength-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-type-string-pattern-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-array-items-error',ordered,'errors'); 
+                html += ratingsValue('openapi-schema-properties-array-maxitems-error',ordered,'errors'); 
+
+                html += ratingsValue('openapi-schema-properties-pii-error  ',ordered,'errors'); 
+                html += '</table>';                
+                // ALL
+                //html += '<tr><td colspan="5"><hr></td></tr>'
+                //html += ratingsTitleRow('ALL');
+                //html += '<table>';
+                //for (const [rule, counts] of Object.entries(ordered)) {                    
+                        ///html += ratingsRow(rule,counts);                
+                //} 
+                html += '</table>';                  
+                             
+                html += '</table>';
+
+                document.getElementById('summary').innerHTML = html;
+                document.getElementById('rules-summary').innerHTML = '';
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary - UPDATING!!!'
+                document.getElementById('rules-summary').innerHTML = '---\r\n' + jsyaml.dump(ordered) + '---';
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary'
+
+            }
+
+            function ratingsTitleRow(title){
+                let html = '<h3>' + title + '</h3>';
+                return html;               
+            }      
+            
+            function ratingsBodyRow(body){
+                let html = '<p>' + body + '</p>';
+                return html;               
+            }                
+
+            function ratingsRow(rule,counts){
+                let html = '<tr>';                      
+
+                //html += '<td style="width: 60%;">' + counts.message + ' (' + rule + ')</td>';
+                //html += '<td style="width: 60%;">' + counts.message + '</td>';
+                html += '<td style="width: 60%;">' + rule + '</td>';
+                if(counts.errors > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9888;</td>';
+                }
+
+                if(counts.warn > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#x26A0;</td>';
+                }
+
+                if(counts.info > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                }
+
+                if(counts.hints > 0){
+                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                }
+
+                html += '</tr>'; 
+                return html;                
+            }     
+            
+            function ratingsValue(slug,ordered,severity){
+                html = '';
+                for (const [rule, counts] of Object.entries(ordered)) {
+                    if(rule.includes(slug)){
+                        if(severity == 'errors'){
+                            if(counts['errors'] > 0 || counts['warn'] > 0){
+                                console.log("IN!!");
+                                html += ratingsRow(rule,counts);
+                            }
+                        }
+                        else{
+                            if(counts[severity] > 0){
+                                html += ratingsRow(rule,counts);
+                            }
+                        }
+                    }                   
+                }         
+                return html;       
+            }
+        </script>
+    </div>
+</div>

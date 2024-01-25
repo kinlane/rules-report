@@ -1,0 +1,96 @@
+---
+layout: page
+width: expand
+---
+<div class="uk-section">
+    <div class="uk-container uk-container-xlarge">
+
+        <h1 class="uk-article-title">Rules Summary</h1>
+        <p>I am using an open source rules playground for applying rules to Artifact. I like the way the tool shows coverage on the artifact it is being applied to. However, the export file is a little verbose and I need a way to summarize the results.</p>
+        <h2>Rules Input</h2> 
+        <input type="text" id="format" style="width: 100%;"> 
+        <textarea style="width: 100%; height: 250px; border: 5px solid #000;" id="rules-input" onchange="updateArtifact();"></textarea>              
+        <div id="summary"></div>
+        <script>
+            function saveArtifact(artifact){
+                var format = document.getElementById('format').value;
+                if(format=='json'){
+                    document.getElementById('artifact').value = JSON.stringify(artifact, null, 2); 
+                }
+                if(format=='yaml'){
+                    document.getElementById('artifact').value = jsyaml.dump(artifact); 
+                }                
+            }
+
+            function parseArtifact(){
+                var artifact = document.getElementById('artifact').value;
+
+                var is_yaml = 0;
+                var is_json = 0;
+
+                try {
+                    var artifact = jsyaml.load(artifact);
+                    console.log(artifact);
+                    is_yaml = 1;
+                    is_json = 0;
+                } catch (error) {
+                    console.log(error);
+                }
+                try {
+                    var artifact = JSON.parse(artifact);
+                    is_json = 1;
+                    is_yaml = 0;
+                } catch (error) {}
+
+                if(is_json==1){
+                    document.getElementById("format").value = "json";
+                }
+                else{
+                    document.getElementById("format").value = "yaml";  
+                }
+                return artifact;                
+            }
+           
+            function updateArtifact(){
+
+                var artifact = parseArtifact();
+                //console.log(artifact)
+
+                var html = '';
+                if(artifact.paths){
+                    var operation_counter = 1;
+                    for (const [path, method] of Object.entries(artifact.paths)) {
+                        
+                        //console.log(path);
+
+                        html += '<h3>' + path + '</h3>';
+
+                        for (const [verb, operation] of Object.entries(method)) {
+                            
+                            //console.log(verb);
+                            if(verb == 'get' || verb == 'post' || verb == 'patch' || verb == 'put' || verb == 'delete'){
+
+                            html += '<h4>' + verb + '</h4>';
+
+                            html += '<div class="mb-3">';
+                            html += '<label for="info-title" class="form-label">Title</label>';
+                            html += '<input type="text" class="form-control" id="operation-summary-' + operation_counter + '" style="width: 100%;" value="' + operation.summary + '" onchange="updateOperationSummary(' + "'" + path + "'" + ',' + "'" + verb + "'" + ',this.id)">';
+                            html += '</div>';
+
+                            html += '<div class="mb-3">';
+                            html += '<label for="info-description" class="form-label">Description</label>';
+                            html += '<textarea class="form-control" id="operation-description-' + operation_counter + '" rows="4" style="width: 100%;" onchange="updateOperationDescription(' + "'" + path + "'" + ',' + "'" + verb + "'" + ',this.id)">' + operation.description + '</textarea>';
+                            html += '</div>';
+
+                            operation_counter++;
+                            
+                            }
+                        }                    
+                    }
+                }
+                document.getElementById('operations').innerHTML = html;
+
+            }
+        </script>
+    </div>
+</div>

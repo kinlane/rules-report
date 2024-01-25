@@ -1,2 +1,4 @@
-# rules-report
-This is a rules report from ratings.
+# Rules Report
+This is a tool for rating the OpenAPI narrative.
+
+URL: https://rules-report.apievangelist.com
