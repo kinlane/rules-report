@@ -113,18 +113,18 @@ width: expand
                 html += ratingsTitleRow('OpenAPI');  
                 html += ratingsBodyRow("Let's check in on what version is being used of OpenAPI.");  
                 
-                html += '<table>';
+                //html += '<ul>';
                 html += ratingsValue('openapi-openapi-version-310-info',ordered,'info'); 
                 html += ratingsValue('openapi-openapi-version-303-info',ordered,'info'); 
                 html += ratingsValue('openapi-openapi-version-302-info',ordered,'info'); 
                 html += ratingsValue('openapi-openapi-version-301-info',ordered,'info'); 
                 html += ratingsValue('openapi-openapi-version-300-info',ordered,'info'); 
-                html += '</table>';
+                //html += '</ul>';
 
                 // INFO
                 html += ratingsTitleRow('Info');
                 html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('openapi-info',ordered,'info');    
                 html += ratingsValue('openapi-info-title-info',ordered,'info'); 
                 html += ratingsValue('openapi-info-description-info',ordered,'info'); 
@@ -139,20 +139,20 @@ width: expand
                 html += ratingsValue('openapi-info-version-info',ordered,'info');                 
                 html += ratingsValue('openapi-version-semantic-info',ordered,'info');  
                 html += ratingsValue('openapi-version-date-info',ordered,'info');  
-                html += '</table>';
+                //html += '</ul>';
 
                 // PATH
                 html += ratingsTitleRow('Paths');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-path',ordered,'info');     
                 html += ratingsValue('openapi-no-path-trailing-slash',ordered,'info'); 
                 html += ratingsValue('openapi-no-api-in-path-info',ordered,'info'); 
                 html += ratingsValue('openapi-path-description-info',ordered,'info'); 
-                html += '</table>';                
+                //html += '</ul>';                
 
                 // OPERATIONS
                 html += ratingsTitleRow('Operations');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-operation',ordered,'info');
                 
                 html += ratingsValue('openapi-operations-summary-info',ordered,'info');
@@ -160,11 +160,11 @@ width: expand
                 html += ratingsValue('openapi-operations-operation-ids-info',ordered,'info');
                 html += ratingsValue('openapi-operations-operation-ids-camel-case-info',ordered,'info');
                 html += ratingsValue('openapi-operations-tags-info',ordered,'info');                
-                html += '</table>';
+                //html += '</ul>';
 
                 // PARAMETERS
                 html += ratingsTitleRow('Parameters');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-parameter',ordered,'info');   
                 html += ratingsValue('openapi-parameters-name-info',ordered,'info'); 
                 html += ratingsValue('openapi-parameters-in-info',ordered,'info'); 
@@ -175,11 +175,11 @@ width: expand
                 html += ratingsValue('openapi-parameters-schema-info',ordered,'info'); 
                 html += ratingsValue('openapi-parameters-schema-type-info',ordered,'info'); 
                 html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'info'); 
-                html += '</table>';
+                //html += '</ul>';
 
                 // REQUEST BODIES
                 html += ratingsTitleRow('Request Bodies');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-request-bod',ordered,'info');   
 
                 html += ratingsValue('openapi-request-body-on-post-info',ordered,'info');                 
@@ -202,11 +202,11 @@ width: expand
                 html += ratingsValue('openapi-request-body-schema-properties-string-minlength-info  ',ordered,'info');
                 html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-info  ',ordered,'info'); 
 
-                html += '</table>';
+                //html += '</ul>';
 
                 // RESPONSES
                 html += ratingsTitleRow('Responses');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-response',ordered,'info');      
 
                 html += ratingsValue('openapi-response-get-200-status-code-info',ordered,'info');      
@@ -241,11 +241,11 @@ width: expand
                 html += ratingsValue('openapi-response-get-default-status-code-info ',ordered,'info');      
                 html += ratingsValue('openapi-response-get-default-media-type-info',ordered,'info');      
                 html += ratingsValue('openapi-response-get-default-media-type-schema-info',ordered,'info');      
-                html += '</table>';
+                //html += '</ul>';
 
                 // SCHEMA
                 html += ratingsTitleRow('Schema');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-schema',ordered,'info');                   
 
                 html += ratingsValue('openapi-schema-description-info',ordered,'info');                 
@@ -265,7 +265,7 @@ width: expand
                 html += ratingsValue('openapi-schema-properties-array-maxitems-info',ordered,'info'); 
 
                 html += ratingsValue('openapi-schema-properties-pii-info  ',ordered,'info'); 
-                html += '</table>';
+                //html += '</ul>';
 
                 html += '<hr>';
 
@@ -276,7 +276,7 @@ width: expand
                 // error
                 html += ratingsTitleRow('Info');
                 html += ratingsBodyRow("These are the areas of metadata already in place for the API.");  
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('openapi-info',ordered,'errors');    
                 html += ratingsValue('openapi-info-title-error',ordered,'errors'); 
                 html += ratingsValue('openapi-info-description-error',ordered,'errors'); 
@@ -287,20 +287,20 @@ width: expand
                 html += ratingsValue('openapi-info-terms-of-service-error',ordered,'errors'); 
                 html += ratingsValue('openapi-info-version-error',ordered,'errors');                 
                 html += ratingsValue('openapi-info-license-error',ordered,'errors');  
-                html += '</table>';                
+                //html += '</ul>';                
 
                 // PATH
                 html += ratingsTitleRow('Paths');
-                html += '<table>';
+                //html += '<ul>';
                 html += '<tr><td colspan="5"> </td></tr>';
                 //html += ratingsValue('-path',ordered,'errors');     
                 html += ratingsValue('openapi-no-path-trailing-slash-error',ordered,'errors'); 
                 html += ratingsValue('openapi-no-api-in-path-error',ordered,'errors'); 
-                html += '</table>';
+                //html += '</ul>';
 
                 // OPERATIONS
                 html += ratingsTitleRow('Operations');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-operation',ordered,'errors');
                 
                 html += ratingsValue('openapi-operations-summary-error',ordered,'errors');
@@ -309,11 +309,11 @@ width: expand
                 html += ratingsValue('openapi-operations-operation-ids-camel-case-error',ordered,'errors');
                 html += ratingsValue('openapi-operations-tags-error',ordered,'errors');
                 html += ratingsValue('openapi-operations-tags-one-error',ordered,'errors');
-                html += '</table>';
+                //html += '</ul>';
 
                 // PARAMETERS
                 html += ratingsTitleRow('Parameters');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-parameter',ordered,'errors');   
                 html += ratingsValue('openapi-parameters-name-error',ordered,'errors'); 
                 html += ratingsValue('openapi-parameters-in-error',ordered,'errors'); 
@@ -322,11 +322,11 @@ width: expand
                 html += ratingsValue('openapi-parameters-schema-error',ordered,'errors'); 
                 html += ratingsValue('openapi-parameters-schema-type-error',ordered,'errors'); 
                 html += ratingsValue('openapi-parameters-schema-type-string-maxlength ',ordered,'errors'); 
-                html += '</table>';
+                //html += '</ul>';
 
                 // REQUEST BODIES
                 html += ratingsTitleRow('Request Bodies');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-request-bod',ordered,'errors');   
 
                 html += ratingsValue('openapi-request-body-on-post-error',ordered,'errors');                 
@@ -347,11 +347,11 @@ width: expand
                 html += ratingsValue('openapi-request-body-schema-properties-string-minlength-error  ',ordered,'errors');
                 html += ratingsValue('openapi-request-body-schema-properties-string-maxlength-error  ',ordered,'errors'); 
 
-                html += '</table>';
+                //html += '</ul>';
 
                 // RESPONSES
                 html += ratingsTitleRow('Responses');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-response',ordered,'errors');      
 
                 html += ratingsValue('openapi-response-get-200-status-code-error',ordered,'errors');      
@@ -385,11 +385,11 @@ width: expand
                 html += ratingsValue('openapi-response-get-default-status-code-error ',ordered,'errors');      
                 html += ratingsValue('openapi-response-get-default-media-type-error',ordered,'errors');      
                 html += ratingsValue('openapi-response-get-default-media-type-schema-error',ordered,'errors');      
-                html += '</table>';
+                //html += '</ul>';
 
                 // SCHEMA
                 html += ratingsTitleRow('Schema');
-                html += '<table>';
+                //html += '<ul>';
                 //html += ratingsValue('-schema',ordered,'errors');                   
 
                 html += ratingsValue('openapi-schema-description-error',ordered,'errors');                 
@@ -409,17 +409,17 @@ width: expand
                 html += ratingsValue('openapi-schema-properties-array-maxitems-error',ordered,'errors'); 
 
                 html += ratingsValue('openapi-schema-properties-pii-error  ',ordered,'errors'); 
-                html += '</table>';                
+                //html += '</ul>';                
                 // ALL
                 //html += '<tr><td colspan="5"><hr></td></tr>'
                 //html += ratingsTitleRow('ALL');
-                //html += '<table>';
+                ////html += '<ul>';
                 //for (const [rule, counts] of Object.entries(ordered)) {                    
                         ///html += ratingsRow(rule,counts);                
                 //} 
-                html += '</table>';                  
+                //html += '</ul>';                  
                              
-                html += '</table>';
+                //html += '</ul>';
 
                 document.getElementById('summary').innerHTML = html;
                 document.getElementById('rules-summary').innerHTML = '';
@@ -440,28 +440,28 @@ width: expand
             }                
 
             function ratingsRow(rule,counts){
-                let html = '<tr>';                      
+                //let html = '<ul>';                      
 
                 //html += '<td style="width: 60%;">' + counts.message + ' (' + rule + ')</td>';
                 //html += '<td style="width: 60%;">' + counts.message + '</td>';
-                html += '<td style="width: 60%;">' + rule + '</td>';
+                //html += '<td style="width: 60%;">' + rule + '</td>';
                 if(counts.errors > 0){
-                    html += '<td style="width: 10%; text-align: center;">&#9888;</td>';
+                    html += '&#9888; ' + counts.message + '<br>';
                 }
 
                 if(counts.warn > 0){
-                    html += '<td style="width: 10%; text-align: center;">&#x26A0;</td>';
+                    html += '&#x26A0; ' + counts.message + '<br>';
                 }
 
                 if(counts.info > 0){
-                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                    html += '&#9989; ' + counts.message + '<br>';
                 }
 
                 if(counts.hints > 0){
-                    html += '<td style="width: 10%; text-align: center;">&#9989;</td>';
+                    html += '&#9989; ' + counts.message + '<br>';
                 }
 
-                html += '</tr>'; 
+                ////html += '</ul>'; 
                 return html;                
             }     
             

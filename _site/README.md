@@ -1,4 +1,4 @@
-# OpenAPI Summary
-This is a tool for editing the OpenAPI narrative.
+# Rules Report
+This is a tool for rating the OpenAPI narrative.
 
-URL: https://openapi-summary.apievangelist.com
+URL: https://rules-report.apievangelist.com
