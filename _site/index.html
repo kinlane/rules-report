@@ -644,24 +644,13 @@ function searchResults(form) {
                 html += ratingsValue('openapi-schema-properties-array-items-error',ordered,'errors'); 
                 html += ratingsValue('openapi-schema-properties-array-maxitems-error',ordered,'errors'); 
 
-                html += ratingsValue('openapi-schema-properties-pii-error  ',ordered,'errors'); 
-                //html += '</ul>';                
-                // ALL
-                //html += '<tr><td colspan="5"><hr></td></tr>'
-                //html += ratingsTitleRow('ALL');
-                ////html += '<ul>';
-                //for (const [rule, counts] of Object.entries(ordered)) {                    
-                        ///html += ratingsRow(rule,counts);                
-                //} 
-                //html += '</ul>';                  
-                             
-                //html += '</ul>';
+                html += ratingsValue('openapi-schema-properties-pii-error',ordered,'errors');     
 
                 document.getElementById('summary').innerHTML = html;
                 document.getElementById('rules-summary').innerHTML = '';
-                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary - UPDATING!!!'
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary - UPDATING!!!';
                 document.getElementById('rules-summary').innerHTML = '---\r\n' + jsyaml.dump(ordered) + '---';
-                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary'
+                document.getElementById('rules-summary-header').innerHTML = 'Rules Summary';
 
             }
 
@@ -704,19 +693,24 @@ function searchResults(form) {
             function ratingsValue(slug,ordered,severity){
                 html = '';
                 for (const [rule, counts] of Object.entries(ordered)) {
-                    if(rule.includes(slug)){
-                        if(severity == 'errors'){
-                            if(counts['errors'] > 0 || counts['warn'] > 0){
-                                console.log("IN!!");
-                                html += ratingsRow(rule,counts);
+                    if(severity=='all'){
+                        html += ratingsRow(rule,counts);
+                    }
+                    else{                
+                        if(rule.includes(slug)){
+                            if(severity == 'errors'){
+                                if(counts['errors'] > 0 || counts['warn'] > 0){
+                                    console.log("IN!!");
+                                    html += ratingsRow(rule,counts);
+                                }
                             }
-                        }
-                        else{
-                            if(counts[severity] > 0){
-                                html += ratingsRow(rule,counts);
+                            else{
+                                if(counts[severity] > 0){
+                                    html += ratingsRow(rule,counts);
+                                }
                             }
-                        }
-                    }                   
+                        } 
+                    }                  
                 }         
                 return html;       
             }
